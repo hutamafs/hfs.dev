@@ -1,65 +1,62 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { Menu } from "lucide-react";
-import MobileMenu from "./MobileMenu";
 
-const navLinks = [
-  { id: "hero", label: "Home" },
+const links = [
   { id: "about", label: "About" },
-  { id: "experience", label: "Experience" },
+  { id: "experience", label: "Experiences" },
   { id: "portfolio", label: "Projects" },
   { id: "contact", label: "Contact" },
 ];
 
-export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
+export default function FloatingPillNav() {
+  const [visible, setVisible] = useState(false);
+  const [lastY, setLastY] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll);
+    const onScroll = () => {
+      const y = window.scrollY;
+      const goingUp = y < lastY - 2;
+      const pastHero = y > window.innerHeight * 0.6;
+      setVisible(goingUp && pastHero);
+      setLastY(y);
+    };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [lastY]);
 
   return (
-    <section>
-      <header
-        className={`fixed top-0 w-full z-50 transition-all ${
-          scrolled ? "bg-black/70 backdrop-blur-md" : "bg-transparent"
-        }`}
-      >
-        <div className="mx-auto flex max-w-6xl items-center justify-between p-4">
-          <Link href="#hero" className="text-xl font-bold text-white">
-            HFS
-          </Link>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-8 text-white">
-            {navLinks.map((link) => (
-              <Link
-                key={link.id}
-                href={`#${link.id}`}
-                className="hover:text-purple-400 transition"
-              >
-                {link.label}
-              </Link>
+    <AnimatePresence>
+      {visible && (
+        <motion.nav
+          initial={{ y: -24, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: -24, opacity: 0 }}
+          transition={{ duration: 0.25 }}
+          className="
+            fixed left-1/2 top-6 z-50 -translate-x-1/2
+            rounded-full border border-white/10 bg-black/60 backdrop-blur-xl
+            px-3 py-2 shadow-lg
+            md:px-4
+          "
+        >
+          <ul className="flex items-center gap-2 md:gap-4 text-sm md:text-[15px]">
+            {links.map((l) => (
+              <li key={l.id}>
+                <Link
+                  href={`#${l.id}`}
+                  className="rounded-full px-3 py-1.5 text-gray-200 hover:text-white hover:bg-white/10 transition"
+                >
+                  {l.label}
+                </Link>
+              </li>
             ))}
-          </nav>
-
-          {/* Mobile Menu Button */}
-          <button
-            className="md:hidden text-white"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            <Menu size={28} />
-          </button>
-        </div>
-      </header>
-
-      {/* Mobile Menu */}
-      <MobileMenu open={menuOpen} setOpen={setMenuOpen} navLinks={navLinks} />
-    </section>
+          </ul>
+        </motion.nav>
+      )}
+    </AnimatePresence>
   );
 }

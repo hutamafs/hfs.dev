@@ -174,3 +174,10 @@ a:hover {
 .mobile-menu {
   animation: fadeIn 0.2s ease-in-out;
 }
+
+@media (max-width: 767px) {
+  .fixed.left-1\/2.top-6 {
+    top: auto;
+    bottom: 16px;
+  }
+}
