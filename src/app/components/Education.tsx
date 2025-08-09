@@ -83,16 +83,13 @@ export default function EducationSection() {
                 </h3>
                 {d.credential ? (
                   <Link
-                    className="cursor-pointer relative group text-[20px]"
+                    className="cursor-pointer relative group text-[20px] group-hover:opacity-100 transition-opacity duration-200"
                     href={d.credential}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{ marginBottom: "8px", display: "block" }}
                   >
                     {d.title}
-                    <span className="absolute left-0 top-full mt-1 px-2 py-1 bg-gray-800 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                      Show credential
-                    </span>
                   </Link>
                 ) : (
                   <p className="text-lg sm:text-xl text-gray-300 mb-2">
