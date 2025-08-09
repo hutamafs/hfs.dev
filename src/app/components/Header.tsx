@@ -32,6 +32,8 @@ export default function FloatingHeader() {
     }
   };
 
+  const points = ["about", "educations", "experiences", "projects", "contact"];
+
   return (
     <header
       className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out ${
@@ -40,46 +42,16 @@ export default function FloatingHeader() {
     >
       <nav className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3">
         <ul className="flex items-center space-x-8 text-white text-sm font-medium">
-          <li>
-            <button
-              onClick={() => scrollToSection("about")}
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              About
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection("experiences")}
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              Experiences
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection("projects")}
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              Projects
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection("testimonials")}
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              Testimonials
-            </button>
-          </li>
-          <li>
-            <button
-              onClick={() => scrollToSection("contact")}
-              className="hover:text-blue-400 transition-colors duration-200"
-            >
-              Contact
-            </button>
-          </li>
+          {points.map((d) => (
+            <li key={d}>
+              <button
+                onClick={() => scrollToSection(d)}
+                className="hover:text-blue-400 transition-colors capitalize cursor-pointer duration-200"
+              >
+                {d}
+              </button>
+            </li>
+          ))}
         </ul>
       </nav>
     </header>

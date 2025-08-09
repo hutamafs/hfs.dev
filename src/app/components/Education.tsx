@@ -54,7 +54,7 @@ export default function EducationSection() {
   ];
 
   return (
-    <section id="education" className="max-w-6xl mx-auto px-8 py-16 lg:py-24">
+    <section id="educations" className="max-w-6xl mx-auto px-8 py-16 lg:py-24">
       <div className="mb-16">
         <h2 className="text-4xl lg:text-5xl font-bold text-white mb-2">
           Education and Certifications
