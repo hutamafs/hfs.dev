@@ -49,11 +49,12 @@ export default function About() {
             transition={{ duration: 0.5, delay: 0.05 }}
             className="flex justify-center w-full mb-8 rounded-3xl bg-[#0f1126] p-6 md:p-8 ring-1 ring-white/10"
           >
-            <p className="max-w-prose text-gray-300 leading-relaxed">
-              I’m an aspiring developer focused on building accessible apps with
-              React, Next.js, Node, and exploring currently exploring backend
-              such as Go and containerization with Docker and AWS. I care about
-              clean UI, smooth UX, and fast delivery that actually help people.
+            <p className="max-w-prose text-center md:text-left text-gray-300 leading-relaxed">
+              Aspiring developer proficient in building accessible applications
+              with React, <b>Next.js</b>, and <b>Node.js</b>, while actively
+              exploring backend technologies including Go and containerization
+              with Docker and&nbsp;
+              <b>AWS</b>.
             </p>
           </motion.div>
         </div>

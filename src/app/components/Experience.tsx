@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export default function Experience() {
   const experiences = [
     {
@@ -8,6 +10,7 @@ export default function Experience() {
         "Created clear and structured documentation for the front-end codebase to improve code readability and onboarding for the engineering team",
         "Resolved over 20 front-end issues using debugging tools and systematic troubleshooting.",
       ],
+      logo: "/insite.jpeg",
     },
     {
       dateRange: "January 2021 - December 2023",
@@ -18,6 +21,7 @@ export default function Experience() {
         "Architected educational admin portal with RESTful API integration using Node.js and PostgreSQL",
         "Shipped the Hacktiv8 landing page with integrated forms, improving student registration and conversion rates",
       ],
+      logo: "/hacktiv8.png",
     },
     {
       dateRange: "Apr 2021 - June 2022",
@@ -29,6 +33,7 @@ export default function Experience() {
         "Implemented Firebase analytics to track user behavior patterns, enabling data-driven product improvements",
         "Secured a new partnership with a senior high school by showcasing strong UX improvements",
       ],
+      logo: "/rocked.png",
     },
   ];
 
@@ -81,11 +86,20 @@ export default function Experience() {
                       </p>
 
                       {/* role + company */}
-                      <div className="mt-2">
-                        <h3 className="text-lg font-semibold text-white">
-                          {exp.position}
-                        </h3>
-                        <p className="text-sm text-blue-300">{exp.company}</p>
+                      <div className="mt-2 flex items-center gap-3">
+                        <Image
+                          src={exp.logo || "/placeholder-logo.svg"}
+                          alt={`${exp.company} logo`}
+                          width={32}
+                          height={32}
+                          className="h-8 w-8 rounded bg-slate-700 object-contain"
+                        />
+                        <div>
+                          <h3 className="text-lg font-semibold text-white">
+                            {exp.position}
+                          </h3>
+                          <p className="text-sm text-blue-300">{exp.company}</p>
+                        </div>
                       </div>
 
                       {/* bullets */}
