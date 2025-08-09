@@ -48,7 +48,7 @@ export default function Experience() {
         {/* Timeline */}
         <div className="relative">
           {/* Center line */}
-          <div className="pointer-events-none absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-blue-500/70 via-blue-400/40 to-transparent" />
+          <div className="pointer-events-none hidden md:block absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-gradient-to-b from-blue-500/70 via-blue-400/40 to-transparent" />
 
           <ul className="space-y-14">
             {experiences.map((exp, i) => {
@@ -58,7 +58,7 @@ export default function Experience() {
                 <li key={i} className="relative">
                   {/* Dot at center */}
                   <span
-                    className="absolute left-1/2 top-4 z-10 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-500 ring-4 ring-blue-500/20"
+                    className="hidden md:block absolute left-1/2 top-4 z-10 h-3 w-3 -translate-x-1/2 rounded-full bg-blue-500 ring-4 ring-blue-500/20"
                     aria-hidden
                   />
 
