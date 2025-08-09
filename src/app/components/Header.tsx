@@ -36,14 +36,14 @@ export default function FloatingHeader() {
 
   return (
     <header
-      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out ${
+      className={`max-w-[98%] md:max-w-full fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out ${
         isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       }`}
     >
-      <nav className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3">
-        <ul className="flex items-center space-x-8 text-white text-sm font-medium">
+      <nav className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-full px-4 sm:px-6 md:px-8 py-3 overflow-x-auto">
+        <ul className="flex items-center space-x-4 sm:space-x-6 md:space-x-8 text-white text-sm font-medium whitespace-nowrap">
           {points.map((d) => (
-            <li key={d}>
+            <li key={d} className="flex-shrink-0">
               <button
                 onClick={() => scrollToSection(d)}
                 className="hover:text-blue-400 transition-colors capitalize cursor-pointer duration-200"
