@@ -54,7 +54,7 @@ export default function Projects() {
   };
 
   return (
-    <section id="projects" className="min-h-screen text-white py-16 px-4">
+    <section id="projects" className="text-white py-16 px-4">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-16">
