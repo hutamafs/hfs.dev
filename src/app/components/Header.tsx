@@ -1,62 +1,87 @@
 "use client";
+import { useState, useEffect } from "react";
 
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
-
-const links = [
-  { id: "about", label: "About" },
-  { id: "experience", label: "Experiences" },
-  { id: "portfolio", label: "Projects" },
-  { id: "contact", label: "Contact" },
-];
-
-export default function FloatingPillNav() {
-  const [visible, setVisible] = useState(false);
-  const [lastY, setLastY] = useState(0);
+export default function FloatingHeader() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const onScroll = () => {
-      const y = window.scrollY;
-      const goingUp = y < lastY - 2;
-      const pastHero = y > window.innerHeight * 0.6;
-      setVisible(goingUp && pastHero);
-      setLastY(y);
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // show header when scrolling up and not at the very top
+      if (currentScrollY < lastScrollY && currentScrollY > 100) {
+        setIsVisible(true);
+      }
+      // hide header when scrolling down or at the very top
+      else if (currentScrollY > lastScrollY || currentScrollY <= 100) {
+        setIsVisible(false);
+      }
+
+      setLastScrollY(currentScrollY);
     };
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [lastY]);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
-    <AnimatePresence>
-      {visible && (
-        <motion.nav
-          initial={{ y: -24, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -24, opacity: 0 }}
-          transition={{ duration: 0.25 }}
-          className="
-            fixed left-1/2 top-6 z-50 -translate-x-1/2
-            rounded-full border border-white/10 bg-black/60 backdrop-blur-xl
-            px-3 py-2 shadow-lg
-            md:px-4
-          "
-        >
-          <ul className="flex items-center gap-2 md:gap-4 text-sm md:text-[15px]">
-            {links.map((l) => (
-              <li key={l.id}>
-                <Link
-                  href={`#${l.id}`}
-                  className="rounded-full px-3 py-1.5 text-gray-200 hover:text-white hover:bg-white/10 transition"
-                >
-                  {l.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </motion.nav>
-      )}
-    </AnimatePresence>
+    <header
+      className={`fixed top-4 left-1/2 transform -translate-x-1/2 z-50 transition-all duration-300 ease-in-out ${
+        isVisible ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+      }`}
+    >
+      <nav className="bg-gray-900/80 backdrop-blur-md border border-white/10 rounded-full px-6 py-3">
+        <ul className="flex items-center space-x-8 text-white text-sm font-medium">
+          <li>
+            <button
+              onClick={() => scrollToSection("about")}
+              className="hover:text-blue-400 transition-colors duration-200"
+            >
+              About
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => scrollToSection("experiences")}
+              className="hover:text-blue-400 transition-colors duration-200"
+            >
+              Experiences
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => scrollToSection("projects")}
+              className="hover:text-blue-400 transition-colors duration-200"
+            >
+              Projects
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => scrollToSection("testimonials")}
+              className="hover:text-blue-400 transition-colors duration-200"
+            >
+              Testimonials
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => scrollToSection("contact")}
+              className="hover:text-blue-400 transition-colors duration-200"
+            >
+              Contact
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </header>
   );
 }
