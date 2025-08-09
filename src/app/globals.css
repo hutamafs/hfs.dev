@@ -2,6 +2,7 @@
 
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "leaflet/dist/leaflet.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -180,4 +181,16 @@ a:hover {
     top: auto;
     bottom: 16px;
   }
+}
+
+.map-theme-green .leaflet-container {
+  /* base dark -> shift toward green/teal, slightly brighter */
+  filter: hue-rotate(135deg) saturate(1.25) brightness(1.05) contrast(1.05);
+}
+
+.map-theme-green .leaflet-control-zoom a {
+  border-radius: 12px !important;
+  background: rgba(0, 0, 0, 0.6) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
 }
