@@ -3,17 +3,54 @@ import {
   SiTailwindcss,
   SiTypescript,
   SiVercel,
+  SiSupabase,
+  SiVite,
+  SiSocketdotio,
+  SiPostgresql,
+  SiExpress,
 } from "react-icons/si";
 import { FaReact } from "react-icons/fa";
-import ComingSoonCard from "./ComingSoonCard";
 
 export default function Projects() {
   const projects = [
     {
+      title: "ScrollIQ",
+      description:
+        "TikTok-style infinite-scroll quiz app for frontend interview prep. Features cursor-based pagination, optimistic mutations with rollback, real-time accuracy tracking, and Google/GitHub OAuth.",
+      image: "/scrolliq-banner.png",
+      gradient: "from-violet-950 to-slate-900",
+      tech: [
+        { name: "React", icon: FaReact },
+        { name: "TypeScript", icon: SiTypescript },
+        { name: "Supabase", icon: SiSupabase },
+        { name: "Tailwind CSS", icon: SiTailwindcss },
+        { name: "Vite", icon: SiVite },
+      ],
+      liveUrl: "https://scrolliq.vercel.app/",
+      codeUrl: "https://github.com/hutamafs/scrolliq",
+    },
+    {
+      title: "Crystal Engine",
+      description:
+        "Real-time multiplayer board game with a server-authoritative TypeScript game engine, Socket.IO state sync, mid-game reconnection, and auto-skip logic for disconnected players.",
+      image: "/crystal-engine-banner.png",
+      gradient: "from-blue-950 to-slate-900",
+      tech: [
+        { name: "Next.js", icon: SiNextdotjs },
+        { name: "TypeScript", icon: SiTypescript },
+        { name: "Socket.IO", icon: SiSocketdotio },
+        { name: "PostgreSQL", icon: SiPostgresql },
+        { name: "Express", icon: SiExpress },
+      ],
+      liveUrl: "https://crystal-engine.vercel.app/",
+      codeUrl: "https://github.com/hutamafs/crystal-engine",
+    },
+    {
       title: "Personal Portfolio",
       description:
-        "My little corner of the web, built with Next.js, where I show off my projects and share what I’ve been up to as a developer.",
+        "My little corner of the web, built with Next.js, where I show off my projects and share what I've been up to as a developer.",
       image: "/hfs-banner.png",
+      gradient: "from-slate-800 to-slate-900",
       tech: [
         { name: "Next.js", icon: SiNextdotjs },
         { name: "React", icon: FaReact },
@@ -21,21 +58,20 @@ export default function Projects() {
         { name: "TypeScript", icon: SiTypescript },
         { name: "Vercel", icon: SiVercel },
       ],
-      liveUrl: "#",
+      liveUrl: "https://hfs-dev.vercel.app/",
       codeUrl: "https://github.com/hutamafs/hfs.dev",
-      category: "Web Development",
-      gradient: "from-slate-800 to-slate-900",
     },
   ];
 
-  const renderUrl = (url: string, target: string | null = null) => {
+  const renderUrl = (url: string, label: string, target: string | null = null) => {
     return (
       <a
         href={url}
         className="flex items-center gap-2 text-sm font-medium hover:opacity-80 transition-opacity"
         target={target ?? "_self"}
+        rel={target === "_blank" ? "noopener noreferrer" : undefined}
       >
-        View code
+        {label}
         <svg
           className="w-4 h-4"
           fill="none"
@@ -69,17 +105,19 @@ export default function Projects() {
             <div key={index} className="group cursor-pointer">
               {/* Project Card */}
               <div
-                className={`bg-gradient-to-br text-white
-            rounded-2xl p-8 h-80 relative overflow-hidden transition-transform duration-300 group-hover:-translate-y-2 `}
-                style={{
-                  backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.5), rgba(30, 41, 59, 0.5)),url(${project.image})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
+                className={`bg-gradient-to-br ${project.gradient} text-white rounded-2xl p-8 h-80 relative overflow-hidden transition-transform duration-300 group-hover:-translate-y-2`}
+                style={
+                  project.image
+                    ? {
+                        backgroundImage: `linear-gradient(rgba(30, 41, 59, 0.5), rgba(30, 41, 59, 0.5)), url(${project.image})`,
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }
+                    : undefined
+                }
               >
                 {/* Content */}
                 <div className="relative z-10 h-full flex flex-col">
-                  {/* Bottom section with dots and link */}
                   <div className="flex items-center justify-between mt-auto">
                     <div className="flex gap-2 flex-1 max-w-2/5">
                       {project.tech.map((t, i) => (
@@ -92,8 +130,8 @@ export default function Projects() {
                       ))}
                     </div>
                     <div className="flex flex-1 max-w-3/5 justify-between">
-                      {renderUrl(project.liveUrl, null)}|
-                      {renderUrl(project.codeUrl, "_blank")}
+                      {renderUrl(project.liveUrl, "View live", "_blank")}|
+                      {renderUrl(project.codeUrl, "View code", "_blank")}
                     </div>
                   </div>
                 </div>
@@ -110,9 +148,6 @@ export default function Projects() {
               </div>
             </div>
           ))}
-
-          {/* Coming Soon Card */}
-          {projects.length === 1 && <ComingSoonCard />}
         </div>
       </div>
     </section>
